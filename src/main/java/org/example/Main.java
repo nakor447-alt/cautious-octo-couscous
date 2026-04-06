@@ -1,17 +1,61 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+    public static void main(String[] args) {
+        System.out.println("===== ЧАСТЬ 1: Животные =====\n");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+        // Создаём животных
+        Dog bobik = new Dog("Бобик");
+        Dog rex = new Dog("Рекс");
+        Cat murka = new Cat("Мурка");
+        Cat barsik = new Cat("Барсик");
+        Cat tom = new Cat("Том");
+
+        // Проверяем бег и плавание
+        bobik.run(150);
+        bobik.run(600);
+        bobik.swim(5);
+        bobik.swim(15);
+
+        murka.run(180);
+        murka.run(250);
+        murka.swim(5);
+
+        System.out.println("\n===== Статистика =====");
+        System.out.println("Всего животных: " + Animal.getAnimalCount());
+        System.out.println("Собак: " + Dog.getDogCount());
+        System.out.println("Котов: " + Cat.getCatCount());
+
+        System.out.println("\n===== ЧАСТЬ 2: Коты и миска =====\n");
+
+        // Создаём миску с 30 ед. еды
+        Bowl bowl = new Bowl(30);
+
+        // Массив котов
+        Cat[] cats = {murka, barsik, tom};
+
+        // Коты пытаются поесть
+        for (Cat cat : cats) {
+            cat.eat(bowl, 15);
         }
+
+        System.out.println("\n=== Результат сытости котов ===");
+        for (Cat cat : cats) {
+            System.out.println(cat.name + ": " + (cat.isFull() ? "Сыт" : "Голоден"));
+        }
+
+        // Добавляем еду в миску
+        System.out.println("\n=== Добавляем еду в миску ===");
+        bowl.addFood(20);
+
+        // Пусть голодный кот поест
+        System.out.println("\n=== Том пробует поесть снова ===");
+        tom.eat(bowl, 15);
+
+        System.out.println("\n=== Финальный статус котов ===");
+        for (Cat cat : cats) {
+            System.out.println(cat.name + ": " + (cat.isFull() ? "Сыт" : "Голоден"));
+        }
+        System.out.println("Осталось еды в миске: " + bowl.getFoodAmount());
     }
 }

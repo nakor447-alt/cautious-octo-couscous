@@ -1,17 +1,61 @@
-package org.example;
+import java.util.*;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+    public static void main(String[] args) {
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("Анна", "A-101", 1, Arrays.asList(4, 5, 4, 3)));
+        students.add(new Student("Иван", "B-202", 2, Arrays.asList(2, 3, 2, 2)));
+        students.add(new Student("Мария", "A-101", 1, Arrays.asList(5, 5, 4, 5)));
+        students.add(new Student("Петр", "B-202", 2, Arrays.asList(3, 3, 3, 4)));
+        students.add(new Student("Ольга", "C-303", 3, Arrays.asList(4, 4, 4, 4)));
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
+        System.out.println("До удаления:");
+        for (Student s : students) {
+            System.out.println(s);
+        }
+
+        removePoorStudents(students);
+
+        System.out.println("\nПосле удаления:");
+        for (Student s : students) {
+            System.out.println(s);
+        }
+
+        promoteStudents(students);
+
+        System.out.println("\nПосле перевода:");
+        for (Student s : students) {
+            System.out.println(s);
+        }
+
+        Set<Student> studentSet = new HashSet<>(students);
+        printStudents(studentSet, 2);
+    }
+
+    public static void removePoorStudents(List<Student> students) {
+        Iterator<Student> iterator = students.iterator();
+        while (iterator.hasNext()) {
+            Student s = iterator.next();
+            if (s.getAverageGrade() < 3.0) {
+                iterator.remove();
+            }
+        }
+    }
+
+    public static void promoteStudents(List<Student> students) {
+        for (Student s : students) {
+            if (s.getAverageGrade() >= 3.0) {
+                s.setCourse(s.getCourse() + 1);
+            }
+        }
+    }
+
+    public static void printStudents(Set<Student> students, int course) {
+        System.out.println("\nСтуденты на " + course + " курсе:");
+        for (Student s : students) {
+            if (s.getCourse() == course) {
+                System.out.println(s.getName());
+            }
         }
     }
 }

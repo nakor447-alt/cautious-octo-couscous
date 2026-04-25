@@ -1,0 +1,38 @@
+package org.example;
+
+public class NumberComparatorNG {
+    public static int compare(int a, int b) {
+        return Integer.compare(a, b);
+    }
+
+    public static boolean isGreater(int a, int b) {
+        return a > b;
+    }
+
+    public static boolean isLess(int a, int b) {
+        return a < b;
+    }
+
+    public static boolean isEqual(int a, int b) {
+        return a == b;
+    }
+
+    public static int max(int a, int b) {
+        return Math.max(a, b);
+    }
+
+    public static int min(int a, int b) {
+        return Math.min(a, b);
+    }
+
+    public static String getSign(int number) {
+        if (number > 0) {
+            return "Positive";
+        } else if (number < 0) {
+            return "Negative";
+        } else {
+            return "Zero";
+        }
+    }
+}
+

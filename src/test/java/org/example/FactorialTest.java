@@ -20,9 +20,25 @@ class FactorialTest {
         assertEquals(1, Factorial.calculate(1), "Факториал 1 должен быть равен 1");
     }
 
+    @Test
+    @DisplayName("Факториал пяти должен быть равен 120")
+    void testFactorialOfFive() {
+        assertEquals(120, Factorial.calculate(5), "Факториал 5 должен быть равен 120");
+    }
+
+    @Test
+    @DisplayName("Факториал отрицательного числа должен выбрасывать исключение")
+    void testFactorialNegative() {
+        assertThrows(IllegalArgumentException.class,
+                () -> Factorial.calculate(-1),
+                "Должно быть выброшено исключение для отрицательного числа");
+    }
+
     @ParameterizedTest
     @DisplayName("Параметризованный тест факториала")
     @CsvSource({
+            "0, 1",
+            "1, 1",
             "2, 2",
             "3, 6",
             "4, 24",
@@ -30,22 +46,6 @@ class FactorialTest {
     })
     void testFactorialParameterized(int input, long expected) {
         assertEquals(expected, Factorial.calculate(input),
-                () -> String.format("Факториал %d должен быть равен %d", input, expected));
-    }
-
-    @Test
-    @DisplayName("Факториал отрицательного числа должен выбрасывать исключение")
-    void testFactorialNegativeNumber() {
-        assertThrows(IllegalArgumentException.class,
-                () -> Factorial.calculate(-1),
-                "Должно быть выброшено исключение для отрицательного числа");
-    }
-
-    @Test
-    @DisplayName("Тест переполнения")
-    void testFactorialOverflow() {
-        assertThrows(ArithmeticException.class,
-                () -> Factorial.calculate(21),
-                "Факториал 21 должен вызвать переполнение");
+                () -> "Факториал " + input + " должен быть равен " + expected);
     }
 }

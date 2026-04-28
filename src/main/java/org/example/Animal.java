@@ -15,6 +15,12 @@ public abstract class Animal {
     }
 
     public void run(int distance) {
+        // Проверка на отрицательную дистанцию
+        if (distance < 0) {
+            System.out.println(name + " не может пробежать отрицательную дистанцию (" + distance + " м.).");
+            return;
+        }
+
         if (distance <= runLimit) {
             System.out.println(name + " пробежал " + distance + " м.");
         } else {
@@ -23,6 +29,12 @@ public abstract class Animal {
     }
 
     public void swim(int distance) {
+        // Проверка на отрицательную дистанцию
+        if (distance < 0) {
+            System.out.println(name + " не может проплыть отрицательную дистанцию (" + distance + " м.).");
+            return;
+        }
+
         if (swimLimit == 0) {
             System.out.println(name + " не умеет плавать");
         } else if (distance <= swimLimit) {

@@ -88,6 +88,18 @@ public class HomePage {
         System.out.println("Введена сумма: " + amount);
     }
 
+    // ===== ЧТЕНИЕ ЗНАЧЕНИЙ ИЗ ПОЛЕЙ =====
+    public String getPhoneValue() {
+        WebElement input = driver.findElement(phoneInput);
+        return input.getAttribute("value");
+    }
+
+    public String getSumValue() {
+        WebElement input = driver.findElement(sumInput);
+        return input.getAttribute("value");
+    }
+
+    // ===== ПЛЕЙСХОЛДЕРЫ =====
     public String getPhonePlaceholder() {
         return driver.findElement(phoneInput).getAttribute("placeholder");
     }
@@ -112,6 +124,7 @@ public class HomePage {
     public void clickMoreDetailsLink() {
         WebElement link = driver.findElement(moreDetailsLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", link);
+        System.out.println("Ссылка Подробнее нажата");
     }
 
     public String getBlockTitle() {

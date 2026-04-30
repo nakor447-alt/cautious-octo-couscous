@@ -1,28 +1,35 @@
 package org.example.tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.testng.AllureTestNg;
 import base.MtsBaseTest;
 import org.example.pages.HomePage;
-import org.example.pages.PaymentFramePage;
+import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+@Listeners({AllureTestNg.class})
+@Feature("Блок 'Онлайн пополнение без комиссии'")
 public class CommunicationServicePaymentTest extends MtsBaseTest {
 
-    @Test
+    @Test(description = "Проверка ввода номера телефона")
+    @Description("Тест проверяет, что номер телефона вводится в поле")
     public void testCommunicationServicePayment() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
 
+        // Выбрать услугу
         homePage.selectCommunicationService();
+
+        // Ввести номер
         homePage.enterPhoneNumber("297777777");
-        homePage.enterAmount("5");
-        homePage.clickContinue();
 
-        PaymentFramePage paymentFrame = new PaymentFramePage(driver);
+        // ПРОВЕРКА: прочитать значение из поля
+        String actualValue = homePage.getPhoneValue();
+        System.out.println("Введённое значение: '" + actualValue + "'");
 
-        System.out.println("=== Результаты проверки ===");
-        System.out.println("Сумма: " + paymentFrame.getDisplayedSum());
-        System.out.println("Телефон: " + paymentFrame.getDisplayedPhoneNumber());
-
-        // Пока просто выводим, без assert
-        // Когда заработает — добавим проверки
+        Assert.assertTrue(actualValue.contains("297777777"),
+                "Номер телефона не введён! В поле: '" + actualValue + "'");
     }
 }

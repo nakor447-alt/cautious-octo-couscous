@@ -1,1 +1,0 @@
-{"uuid":"26460ac6-f1d2-4960-aeab-d15a8bb597e4","name":"base.MtsBaseTest.setUp","children":["bf5e9ce8-9f69-4a54-bb98-d725f1e5a259"],"description":"","befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1777495227773,"stop":1777495236492}],"afters":[],"start":1777495227773,"stop":1777495236492}

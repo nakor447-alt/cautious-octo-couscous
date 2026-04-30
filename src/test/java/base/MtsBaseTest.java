@@ -25,10 +25,10 @@ public class MtsBaseTest {
 
         ChromeOptions options = new ChromeOptions();
 
-        // Отключаем автоматизацию
+        // Отключаем флаг автоматизации
+        options.addArguments("--disable-blink-features=AutomationControlled");
         options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
         options.setExperimentalOption("useAutomationExtension", false);
-        options.addArguments("--disable-blink-features=AutomationControlled");
 
         // Реалистичный User-Agent
         options.addArguments("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
@@ -42,8 +42,13 @@ public class MtsBaseTest {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
+        // Очищаем cookies перед каждым тестом
+        driver.manage().deleteAllCookies();
+
+        // Загружаем сайт
         loadSiteWithRetry();
         acceptCookies();
     }
@@ -82,6 +87,12 @@ public class MtsBaseTest {
     public void tearDown() {
         if (driver != null) {
             driver.quit();
+        }
+        // Пауза 5 секунд между тестами для стабильности
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 }
